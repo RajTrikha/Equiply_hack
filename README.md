@@ -1,4 +1,10 @@
+
 Equiply Hackathon — Hospital Equipment Enrichment Engine
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 12 PM" src="https://github.com/user-attachments/assets/f410bb1e-e617-4d8a-b762-b04e90516ceb" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 17 PM" src="https://github.com/user-attachments/assets/70a9107b-d865-4298-9e0c-aa4205aa7dd9" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 25 PM" src="https://github.com/user-attachments/assets/27c18085-ae8a-41a9-a71c-dd0f3e4fee44" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 29 PM" src="https://github.com/user-attachments/assets/36831f27-354c-4eb0-8019-4f00bff81466" />
+
 
 A hospital-equipment enrichment system that converts raw inventory records into a cleaner, auditable dataset.
 
