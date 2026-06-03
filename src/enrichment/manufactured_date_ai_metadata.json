@@ -1,0 +1,33 @@
+{
+  "generated": true,
+  "generated_at": "2026-06-03T00:20:55.220Z",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "deterministic_baseline_resolved_count": 466,
+  "deterministic_baseline_unresolved_count": 335,
+  "unresolved_groups_sent_to_ai": 51,
+  "llm_calls": 6,
+  "usage": {
+    "input_tokens": 11467,
+    "output_tokens": 5474,
+    "total_tokens": 16941,
+    "cached_input_tokens": 0,
+    "reasoning_tokens": 0
+  },
+  "ai_proposed_rules": 2,
+  "accepted_rules": 0,
+  "rejected_rules": 2,
+  "additional_rows_resolved_after_validation": 0,
+  "final_unresolved_count": 335,
+  "accepted_rule_keys": [],
+  "rejected_rule_summaries": [
+    {
+      "pair_key": "COGENTIXMEDICAL::CST4000::AA9999A",
+      "reason": "rule matched 2/2 rows, below acceptance threshold"
+    },
+    {
+      "pair_key": "COGENTIXMEDICAL::CST5000::AA9999A",
+      "reason": "matched serial CS0715N but extracted date components were invalid"
+    }
+  ],
+  "notes": "Only validated AI-proposed rules are cached. The runtime never calls the API and unresolved rows remain blank when no accepted rule exists."
+}

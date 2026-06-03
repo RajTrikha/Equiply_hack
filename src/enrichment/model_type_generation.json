@@ -1,0 +1,27 @@
+{
+  "generated": true,
+  "generated_at": "2026-06-02T23:25:25.039Z",
+  "model": "gpt-5.4-mini-2026-03-17",
+  "raw_pairs_observed": 55,
+  "normalized_pairs_classified": 52,
+  "api_calls_made": 1,
+  "runtime_api_calls": 0,
+  "usage": {
+    "input_tokens": 3041,
+    "output_tokens": 2153,
+    "total_tokens": 5194,
+    "cached_input_tokens": 0,
+    "reasoning_tokens": 0
+  },
+  "manual_review_pairs": [
+    "AMERICANDIAGNOSTIC::CE1434",
+    "COGENTIXMEDICAL::CST4000",
+    "COGENTIXMEDICAL::CST5000",
+    "GEHEALTHCARE::PATIENTDATAMODULEPDM",
+    "LABCORP::642E",
+    "PHILIPS::M3002A",
+    "THERMOSCIENTIFIC::SMARTVUE915",
+    "UNICO::G380PLLED"
+  ],
+  "notes": "Generated via one batched OpenAI Responses API call over normalized manufacturer-model pairs. Review flagged pairs before final submission."
+}

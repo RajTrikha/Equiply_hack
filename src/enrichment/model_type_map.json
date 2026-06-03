@@ -1,0 +1,262 @@
+{
+  "AMERICANDIAGNOSTIC::CE1434": {
+    "device_type": "Blood Pressure Monitor",
+    "confidence": "low",
+    "rationale": "American Diagnostic focuses on vital-sign equipment, but CE 1434 looks more like a regulatory mark than a product family, so this remains a low-confidence blood pressure monitor classification."
+  },
+  "ARJOINC::FLOWTRON": {
+    "device_type": "Compression Therapy Pump",
+    "confidence": "high",
+    "rationale": "Arjo Flowtron is a well-known intermittent pneumatic compression therapy system."
+  },
+  "BAXTERHEALTHCARECORP::SPECTRUMIQ": {
+    "device_type": "Infusion Pump",
+    "confidence": "high",
+    "rationale": "Baxter Spectrum IQ is an infusion pump platform."
+  },
+  "BIOSONIC::UC95": {
+    "device_type": "Ultrasonic Cleaner",
+    "confidence": "high",
+    "rationale": "BioSonic UC95 is an ultrasonic cleaner model used for instrument cleaning."
+  },
+  "BIOSONIC::UC95D15": {
+    "device_type": "Ultrasonic Cleaner",
+    "confidence": "high",
+    "rationale": "BioSonic UC95D15 is a variant of the UC95 ultrasonic cleaner family."
+  },
+  "COGENTIXMEDICAL::CST4000": {
+    "device_type": "Cystoscope",
+    "confidence": "high",
+    "rationale": "Cogentix Medical CST-4000 belongs to a cystoscopy/endoscopy product family."
+  },
+  "COGENTIXMEDICAL::CST5000": {
+    "device_type": "Cystoscope",
+    "confidence": "high",
+    "rationale": "Cogentix Medical CST-5000 belongs to a cystoscopy/endoscopy product family."
+  },
+  "COVIDIEN::RAPIDVAC": {
+    "device_type": "Smoke Evacuation System",
+    "confidence": "high",
+    "rationale": "Covidien RapidVac is a surgical smoke evacuation product."
+  },
+  "EDANINSTRUMENTS::ELITEV5": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Edan Elite V5 is a bedside patient monitor series."
+  },
+  "EDANINSTRUMENTS::F9EXPRESS": {
+    "device_type": "Fetal Monitor",
+    "confidence": "high",
+    "rationale": "Edan F9 Express is a fetal monitor."
+  },
+  "EDANINSTRUMENTS::IM3": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Edan iM3 is a bedside patient monitor."
+  },
+  "EDANINSTRUMENTS::IM50": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Edan iM50 is a patient monitor."
+  },
+  "EDANINSTRUMENTS::IM70": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Edan iM70 is a patient monitor."
+  },
+  "EDANINSTRUMENTS::IT20": {
+    "device_type": "Telemetry Transmitter",
+    "confidence": "high",
+    "rationale": "Edan iT20 is a telemetry transmitter used within Edan's patient monitoring ecosystem."
+  },
+  "EDANINSTRUMENTS::SE1200EXPRESS": {
+    "device_type": "ECG Machine",
+    "confidence": "high",
+    "rationale": "Edan SE-1200 Express is an ECG machine."
+  },
+  "EXERGEN::TAT5000": {
+    "device_type": "Thermometer",
+    "confidence": "high",
+    "rationale": "Exergen TAT5000 is a temporal artery thermometer."
+  },
+  "GEHEALTHCARE::APEXPROCH": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "GE Apex Pro CH is a patient monitoring/telemetry product."
+  },
+  "GEHEALTHCARE::PATIENTDATAMODULEPDM": {
+    "device_type": "Patient Monitoring Module",
+    "confidence": "high",
+    "rationale": "GE Patient Data Module (PDM) is a monitoring module accessory."
+  },
+  "HILLROM::CENTURY": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Hillrom Century is a hospital bed family."
+  },
+  "HILLROM::CENTURYP1400": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Hillrom Century P1400 is a hospital bed variant."
+  },
+  "HILLROM::P1440": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Hillrom P1440 is a hospital bed model."
+  },
+  "HILLROM::P3200": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Hillrom P3200 is a hospital bed model."
+  },
+  "HILLROM::PCENTURYK3256": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Hillrom P Century K3256 is a hospital bed variant."
+  },
+  "HOSPIRA::PLUMA": {
+    "device_type": "Infusion Pump",
+    "confidence": "high",
+    "rationale": "Hospira Pluma+ is an infusion pump."
+  },
+  "JIANGMENDACHENGMEDICALEQUIPMENTCO::IOB507": {
+    "device_type": "Patient Warming Unit",
+    "confidence": "high",
+    "rationale": "Jiangmen Dacheng IOB-507 is a patient warming unit."
+  },
+  "LABCORP::642E": {
+    "device_type": "Other",
+    "confidence": "low",
+    "rationale": "Labcorp 642E remains ambiguous after review, so it is retained as Other rather than assigned to a more specific device family without evidence."
+  },
+  "LINET::ELEGANZA3": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Linet Eleganza 3 is a hospital bed line."
+  },
+  "LINET::ELEGANZA4": {
+    "device_type": "Hospital Bed",
+    "confidence": "high",
+    "rationale": "Linet Eleganza 4 is a hospital bed line."
+  },
+  "MASIMO::RAD8": {
+    "device_type": "Pulse Oximeter",
+    "confidence": "high",
+    "rationale": "Masimo Rad-8 is a pulse oximetry monitor."
+  },
+  "MINDRAY::BENEVISIONN15": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Mindray BeneVision N15 is a patient monitor."
+  },
+  "MINDRAY::EPM12MA": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Mindray ePM 12M/A is a patient monitor family."
+  },
+  "OLYMPUS::CV190": {
+    "device_type": "Endoscopy Processor",
+    "confidence": "high",
+    "rationale": "Olympus CV-190 is an endoscopy processor."
+  },
+  "PHILIPS::INTELLIVUEMP20": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Philips IntelliVue MP20 is a patient monitor."
+  },
+  "PHILIPS::INTELLIVUEMP30": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Philips IntelliVue MP30 is a patient monitor."
+  },
+  "PHILIPS::INTELLIVUEMP50": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Philips IntelliVue MP50 is a patient monitor."
+  },
+  "PHILIPS::INTELLIVUEMX40": {
+    "device_type": "Telemetry Transmitter",
+    "confidence": "high",
+    "rationale": "Philips IntelliVue MX40 is a wearable telemetry transmitter."
+  },
+  "PHILIPS::M3002A": {
+    "device_type": "Patient Monitoring Module",
+    "confidence": "high",
+    "rationale": "Philips M3002A is an IntelliVue monitoring module."
+  },
+  "PHILIPS::MX500": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "Philips MX500 is a patient monitor."
+  },
+  "STRYKER::1061": {
+    "device_type": "Stretcher",
+    "confidence": "high",
+    "rationale": "Stryker 1061 is a stretcher/transport stretcher model."
+  },
+  "STRYKER::1115": {
+    "device_type": "Stretcher",
+    "confidence": "high",
+    "rationale": "Stryker 1115 is a stretcher/transport stretcher model."
+  },
+  "THERMOSCIENTIFIC::SMARTVUE915": {
+    "device_type": "Environmental Temperature Monitor",
+    "confidence": "high",
+    "rationale": "Thermo Scientific Smart-Vue 915 is an environmental monitoring device, commonly used for temperature monitoring."
+  },
+  "UNICO::G380PLLED": {
+    "device_type": "Microscope",
+    "confidence": "high",
+    "rationale": "Unico G380PL LED is a microscope model."
+  },
+  "WELCHALLYN::FILAC3000": {
+    "device_type": "Thermometer",
+    "confidence": "high",
+    "rationale": "Welch Allyn SureTemp/Filac product lines are thermometers; FILAC 3000 is a thermometer."
+  },
+  "WELCHALLYN::SPOTVITALSIGNS": {
+    "device_type": "Patient Monitor",
+    "confidence": "medium",
+    "rationale": "Welch Allyn Spot Vital Signs captures multiple vital signs and is grouped under patient monitors rather than a single-function blood pressure device."
+  },
+  "WELCHALLYN::SURETEMPPLUS": {
+    "device_type": "Thermometer",
+    "confidence": "high",
+    "rationale": "Welch Allyn SureTemp Plus is a thermometer."
+  },
+  "ZOLLMEDICAL::AEDPLUS": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL AED Plus is an automated external defibrillator."
+  },
+  "ZOLLMEDICAL::MSERIES": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL M Series is a defibrillator/monitor platform."
+  },
+  "ZOLLMEDICAL::PROPAQMD": {
+    "device_type": "Patient Monitor",
+    "confidence": "high",
+    "rationale": "ZOLL Propaq MD is a patient monitor with monitoring/defib capabilities, but the primary family is a patient monitor."
+  },
+  "ZOLLMEDICAL::RSERIES": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL R Series is a defibrillator/monitor platform."
+  },
+  "ZOLLMEDICAL::RSERIESALS": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL R Series ALS is a defibrillator/monitor platform."
+  },
+  "ZOLLMEDICAL::RSERIESPLUS": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL R Series Plus is a defibrillator/monitor platform."
+  },
+  "ZOLLMEDICAL::XSERIES": {
+    "device_type": "Defibrillator",
+    "confidence": "high",
+    "rationale": "ZOLL X Series is a defibrillator/monitor platform."
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "generated": true,
+  "generated_at": "2026-06-03T01:05:00.000Z",
+  "groups_researched": 8,
+  "authoritative_sources_found": 8,
+  "candidate_rules_extracted": 3,
+  "accepted_rules": 0,
+  "rejected_rules": 8,
+  "additional_rows_resolved_after_validation": 0,
+  "final_unresolved_count": 335,
+  "attempted_pair_keys": [
+    "ARJOINC::FLOWTRON",
+    "BAXTERHEALTHCARECORP::SPECTRUMIQ",
+    "HILLROM::CENTURYP1400",
+    "HILLROM::P3200",
+    "HILLROM::P1440",
+    "HOSPIRA::PLUMA",
+    "PHILIPS::INTELLIVUEMP50",
+    "PHILIPS::M3002A"
+  ],
+  "accepted_rule_keys": [],
+  "rejected_rule_summaries": [
+    {
+      "pair_key": "HILLROM::P3200",
+      "reason": "FDA VersaCare recall documents an E/F/G/H year-code map, but the current dataset's P3200 serials are J/M-prefixed and do not match that documented serial family."
+    },
+    {
+      "pair_key": "HILLROM::P1440",
+      "reason": "No public official source was found that maps the current P1440 serial prefixes to manufacture years."
+    },
+    {
+      "pair_key": "HILLROM::CENTURYP1400",
+      "reason": "No public official source was found that ties the current Century P1400 serial prefixes to a validated manufacture-date rule."
+    },
+    {
+      "pair_key": "PHILIPS::INTELLIVUEMP50",
+      "reason": "Public Philips documentation treats serial number and date of manufacture as separate label fields and does not publish a serial-date decoder for this monitor family."
+    },
+    {
+      "pair_key": "PHILIPS::M3002A",
+      "reason": "Public Philips documentation identifies the serial number for service, but no authoritative manufacture-date decoding rule was found."
+    },
+    {
+      "pair_key": "BAXTERHEALTHCARECORP::SPECTRUMIQ",
+      "reason": "Public Baxter documents expose recalls and affected serial ranges, but not a general serial-to-manufacture-date decoder."
+    },
+    {
+      "pair_key": "HOSPIRA::PLUMA",
+      "reason": "Public Hospira and FDA materials identify the device family but do not expose a validated serial-date rule for the current Plum A+ serials."
+    },
+    {
+      "pair_key": "ARJOINC::FLOWTRON",
+      "reason": "Public Arjo IFUs identify the serial label for service but do not publish a serial-number manufacture-date rule."
+    }
+  ],
+  "notes": "The web-research layer is active, but the initial cache remains empty because no authoritative public source matched the exact unresolved serial families in the current dataset. Welch Allyn public-manual findings were promoted into deterministic parsers instead of being left in the web cache."
+}
