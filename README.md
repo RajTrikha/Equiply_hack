@@ -1,4 +1,8 @@
 # Equiply Hackathon: Hospital Equipment Enrichment Engine
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 12 PM" src="https://github.com/user-attachments/assets/3e5e126b-a12a-46f5-a821-ab7619424384" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 17 PM" src="https://github.com/user-attachments/assets/7e9b8db8-903e-4094-81e5-df530576e12c" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 25 PM" src="https://github.com/user-attachments/assets/1f98224b-e9f6-43d7-96dc-939c8e29bdc8" />
+<img width="3456" height="2234" alt="Screenshot 2026-06-03 at 2 14 29 PM" src="https://github.com/user-attachments/assets/e8e297df-8684-4dc0-a5f1-8c4d2e2c68c0" />
 
 ## Overview
 
