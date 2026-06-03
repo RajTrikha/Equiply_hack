@@ -1,4 +1,4 @@
-import { toIsoDate, toYearMonthIso, toYearOnlyIso } from "./dateUtils.ts";
+import { julianToIsoDate, toIsoDate, toYearMonthIso, toYearOnlyIso } from "./dateUtils.ts";
 import type { RawRecord, Resolution } from "./types.ts";
 
 export type DateParser = {
@@ -319,7 +319,9 @@ export function decodeWelchSpotVitalsDate(serialNumber: string): Resolution<stri
 
 export function decodeWelchSureTempDate(serialNumber: string): Resolution<string> | null {
   const normalized = serialNumber.trim().toUpperCase().replace(/^\(\d+\)\s*/, "");
-  const match = normalized.match(/^(\d{2})(0[1-9]|[1-4]\d|5[0-3])\d{4}$/);
+  // Some serials lost a leading zero (e.g. "7432348" should be "07432348")
+  const padded = /^\d{7}$/.test(normalized) ? `0${normalized}` : normalized;
+  const match = padded.match(/^(\d{2})(0[1-9]|[1-4]\d|5[0-3])\d{4}$/);
 
   if (!match) {
     return null;
@@ -338,6 +340,145 @@ export function decodeWelchSureTempDate(serialNumber: string): Resolution<string
     precision: "year",
     explanation:
       `Decoded Welch Allyn SureTemp Plus serial in documented YYWWXXXX format using year=${match[1]} and week=${match[2]}.`,
+  };
+}
+
+// Hill-Rom P-series beds: [YEAR_LETTER][DDD][2LETTER][4SEQ]
+// Letter A=2010, B=2011, … (no skips). DDD = Julian day of year.
+// Observed across P3200, P1440, and CenturyP1400 models under both
+// "HILL ROM" and "Hillrom" manufacturer names.
+function hillRomLetterToYear(letter: string): number | null {
+  const offset = letter.toUpperCase().charCodeAt(0) - "A".charCodeAt(0);
+  if (offset < 0 || offset > 25) return null;
+  const year = 2010 + offset;
+  return year <= new Date().getFullYear() ? year : null;
+}
+
+export function decodeHillRomBedDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+  const match = normalized.match(/^([A-Z])(\d{3})([A-Z]{2})(\d{4})$/);
+  if (!match) return null;
+
+  const year = hillRomLetterToYear(match[1]);
+  if (!year) return null;
+
+  const value = julianToIsoDate(year, Number(match[2]));
+  if (!value) return null;
+
+  return {
+    value,
+    source: "hillrom_bed_serial_parser",
+    confidence: "medium",
+    precision: "day",
+    explanation: `Decoded Hill-Rom bed serial: year letter ${match[1]} → ${year}, Julian day ${match[2]}.`,
+  };
+}
+
+// Hospira PLUMA+: YYWWNNN(N) — year+week encoded in first 4 digits.
+// All observed serials encode year 2017 (weeks 43-48), 7-8 digits total.
+export function decodeHospiraPlumaPlusDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+  const match = normalized.match(/^(\d{2})(0[1-9]|[1-4]\d|5[0-3])\d{3,4}$/);
+  if (!match) return null;
+
+  const year = 2000 + Number(match[1]);
+  const value = toYearOnlyIso(year);
+  if (!value) return null;
+
+  return {
+    value,
+    source: "hospira_serial_parser",
+    confidence: "medium",
+    precision: "year",
+    explanation: `Decoded Hospira PLUMA+ serial using YYWW format: year=${match[1]}, week=${match[2]}.`,
+  };
+}
+
+// Cogentix Medical: CS{YY}{WW}[A-Z] — year+week in positions 3-6.
+export function decodeCogentixDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+  const match = normalized.match(/^CS(\d{2})(0[1-9]|[1-4]\d|5[0-3])[A-Z]$/);
+  if (!match) return null;
+
+  const year = 2000 + Number(match[1]);
+  const value = toYearOnlyIso(year);
+  if (!value) return null;
+
+  return {
+    value,
+    source: "cogentix_serial_parser",
+    confidence: "medium",
+    precision: "year",
+    explanation: `Decoded Cogentix Medical serial CS{YY}{WW}{X}: year=${match[1]}, week=${match[2]}.`,
+  };
+}
+
+// BIOSONIC: {YY}{WW}{NNNNN} — 9-digit serials with year+week prefix.
+export function decodeBiosonicDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+  const match = normalized.match(/^(\d{2})(0[1-9]|[1-4]\d|5[0-3])\d{5}$/);
+  if (!match) return null;
+
+  const year = 2000 + Number(match[1]);
+  const value = toYearOnlyIso(year);
+  if (!value) return null;
+
+  return {
+    value,
+    source: "biosonic_serial_parser",
+    confidence: "medium",
+    precision: "year",
+    explanation: `Decoded BIOSONIC serial using YYWWNNNN format: year=${match[1]}, week=${match[2]}.`,
+  };
+}
+
+// Thermo Scientific SMARTVUE915: {YY}{WW}{8-char suffix}.
+// All observed serials are 12 chars with year 2018.
+export function decodeThermoSmartVueDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+  const match = normalized.match(/^(\d{2})(0[1-9]|[1-4]\d|5[0-3])[A-Z0-9]{8}$/);
+  if (!match) return null;
+
+  const year = 2000 + Number(match[1]);
+  const value = toYearOnlyIso(year);
+  if (!value) return null;
+
+  return {
+    value,
+    source: "thermo_smartvue_serial_parser",
+    confidence: "medium",
+    precision: "year",
+    explanation: `Decoded Thermo Scientific SmartVue serial using YYWW prefix: year=${match[1]}, week=${match[2]}.`,
+  };
+}
+
+// American Diagnostic CE 1434: {YY}{DDD}{NNN} or C{YY}{DDD}{NNNN}.
+// DDD = Julian day of year, giving day-level precision.
+export function decodeAmericanDiagnosticDate(serialNumber: string): Resolution<string> | null {
+  const normalized = serialNumber.trim().toUpperCase();
+
+  let yearStr: string;
+  let dayStr: string;
+
+  const cMatch = normalized.match(/^C(\d{2})(\d{3})\d{4}$/);
+  if (cMatch) {
+    [, yearStr, dayStr] = cMatch;
+  } else {
+    const nMatch = normalized.match(/^(\d{2})(\d{3})\d{3}$/);
+    if (!nMatch) return null;
+    [, yearStr, dayStr] = nMatch;
+  }
+
+  const year = 2000 + Number(yearStr);
+  const value = julianToIsoDate(year, Number(dayStr));
+  if (!value) return null;
+
+  return {
+    value,
+    source: "american_diagnostic_serial_parser",
+    confidence: "medium",
+    precision: "day",
+    explanation: `Decoded American Diagnostic CE 1434 serial using YY+Julian day format: year=${yearStr}, day=${dayStr}.`,
   };
 }
 
@@ -412,6 +553,48 @@ export const VALIDATED_DATE_PARSERS: DateParser[] = [
     parse: (record) =>
       record.manufacturer === "Welch Allyn" && record.model === "SURETEMPPLUS"
         ? decodeWelchSureTempDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "hillrom_bed",
+    parse: (record) =>
+      record.manufacturer === "HILL ROM" || record.manufacturer === "Hillrom"
+        ? decodeHillRomBedDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "hospira_pluma_plus",
+    parse: (record) =>
+      record.manufacturer === "Hospira" && record.model === "PLUMA+"
+        ? decodeHospiraPlumaPlusDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "cogentix",
+    parse: (record) =>
+      record.manufacturer === "Cogentix Medical"
+        ? decodeCogentixDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "biosonic",
+    parse: (record) =>
+      record.manufacturer === "BIOSONIC"
+        ? decodeBiosonicDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "thermo_smartvue",
+    parse: (record) =>
+      record.manufacturer === "THERMO SCIENTIFIC" && record.model === "SMARTVUE915"
+        ? decodeThermoSmartVueDate(record.serial_number)
+        : null,
+  },
+  {
+    name: "american_diagnostic",
+    parse: (record) =>
+      record.manufacturer === "American Diagnostic"
+        ? decodeAmericanDiagnosticDate(record.serial_number)
         : null,
   },
 ];

@@ -20,6 +20,13 @@ export function toYearOnlyIso(year: number, minimumYear = 2000): string | null {
   return `${year}-01-01`;
 }
 
+export function julianToIsoDate(year: number, dayOfYear: number): string | null {
+  if (dayOfYear < 1 || dayOfYear > 366) return null;
+  const d = new Date(Date.UTC(year, 0, dayOfYear));
+  if (d.getUTCFullYear() !== year) return null;
+  return toIsoDate(year, d.getUTCMonth() + 1, d.getUTCDate());
+}
+
 export function toYearMonthIso(year: number, month: number, minimumYear = 2000): string | null {
   if (month < 1 || month > 12) {
     return null;

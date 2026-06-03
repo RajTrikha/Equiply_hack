@@ -11,6 +11,7 @@ import type {
   ManufacturedDateAiFallbackMetadata,
   ManufacturedDateWebResearchMetadata,
 } from "../enrichment/types.ts";
+import { ArchitectureDiagram } from "./ArchitectureDiagram.tsx";
 import "./App.css";
 
 const PIE_COLORS = [
@@ -320,6 +321,8 @@ export function App() {
           </div>
         </article>
       </section>
+
+      <ArchitectureDiagram />
     </main>
   );
 }

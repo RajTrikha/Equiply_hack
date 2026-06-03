@@ -1,0 +1,342 @@
+type Precision = "day" | "month" | "year";
+
+const PARSERS: { name: string; precision: Precision }[] = [
+  { name: "ZOLL Medical", precision: "month" },
+  { name: "Edan Instruments", precision: "month" },
+  { name: "GE / Apex Pro CH", precision: "year" },
+  { name: "GE / PDM", precision: "year" },
+  { name: "Jiangmen Dacheng", precision: "day" },
+  { name: "Unico", precision: "day" },
+  { name: "LAB CORP.", precision: "day" },
+  { name: "Hillrom Legacy", precision: "month" },
+  { name: "Stryker", precision: "year" },
+  { name: "LINET", precision: "month" },
+  { name: "Welch / FILAC3000", precision: "year" },
+  { name: "Welch / Spot Vitals", precision: "year" },
+  { name: "Welch / SureTemp+", precision: "year" },
+];
+
+const PRECISION_STYLE: Record<Precision, { bg: string; color: string }> = {
+  day: { bg: "rgba(42,157,143,0.15)", color: "#2a9d8f" },
+  month: { bg: "rgba(21,97,109,0.18)", color: "#15616d" },
+  year: { bg: "rgba(108,127,144,0.14)", color: "#6c7f90" },
+};
+
+function PrecisionBadge({ precision }: { precision: Precision }) {
+  const s = PRECISION_STYLE[precision];
+  return (
+    <span
+      style={{
+        fontSize: "0.6rem",
+        fontWeight: 700,
+        textTransform: "uppercase",
+        letterSpacing: "0.1em",
+        padding: "0.15em 0.5em",
+        borderRadius: "999px",
+        background: s.bg,
+        color: s.color,
+      }}
+    >
+      {precision}
+    </span>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg
+      className="arch-arrow-right"
+      viewBox="0 0 40 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <line x1="1" y1="8" x2="35" y2="8" stroke="#c4bfb3" strokeWidth="1.5" />
+      <polyline points="28,2 36,8 28,14" stroke="#c4bfb3" strokeWidth="1.5" fill="none" />
+    </svg>
+  );
+}
+
+function ArrowDown() {
+  return (
+    <svg
+      className="arch-arrow-down"
+      viewBox="0 0 16 32"
+      fill="none"
+      aria-hidden="true"
+    >
+      <line x1="8" y1="1" x2="8" y2="27" stroke="#c4bfb3" strokeWidth="1.5" />
+      <polyline points="2,20 8,28 14,20" stroke="#c4bfb3" strokeWidth="1.5" fill="none" />
+    </svg>
+  );
+}
+
+type PipelineNodeProps = {
+  badge: string;
+  title: string;
+  sub?: string;
+  fields?: string[];
+  accent?: boolean;
+  outputs?: { label: string; sub: string }[];
+};
+
+function PipelineNode({ badge, title, sub, fields, accent, outputs }: PipelineNodeProps) {
+  return (
+    <div className={`arch-pipe-node${accent ? " arch-pipe-node--accent" : ""}`}>
+      <span className="arch-pipe-badge">{badge}</span>
+      <strong className="arch-pipe-title">{title}</strong>
+      {sub && <span className="arch-pipe-sub">{sub}</span>}
+      {fields && (
+        <ul className="arch-pipe-fields">
+          {fields.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+      )}
+      {outputs && (
+        <div className="arch-pipe-outputs">
+          {outputs.map((o) => (
+            <div key={o.label} className="arch-pipe-output-row">
+              <span className="arch-pipe-output-label">{o.label}</span>
+              <span className="arch-pipe-output-sub">{o.sub}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+type TierProps = {
+  number: number;
+  color: string;
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+};
+
+function Tier({ number, color, title, description, children }: TierProps) {
+  return (
+    <div className="arch-tier" style={{ borderLeftColor: color }}>
+      <div className="arch-tier-head">
+        <span className="arch-tier-num" style={{ background: color }}>
+          {number}
+        </span>
+        <span className="arch-tier-title">{title}</span>
+      </div>
+      {description && <p className="arch-tier-desc">{description}</p>}
+      {children}
+    </div>
+  );
+}
+
+function OfflineScript({
+  title,
+  sub,
+  output,
+  outputSub,
+  color,
+}: {
+  title: string;
+  sub: string;
+  output: string;
+  outputSub: string;
+  color: string;
+}) {
+  return (
+    <div className="arch-script">
+      <div className="arch-script-top" style={{ borderColor: color }}>
+        <span className="arch-script-label" style={{ color }}>script</span>
+        <strong className="arch-script-name">{title}</strong>
+        <span className="arch-script-sub">{sub}</span>
+      </div>
+      <ArrowDown />
+      <div className="arch-script-output">
+        <span className="arch-script-file">{output}</span>
+        <span className="arch-script-file-sub">{outputSub}</span>
+      </div>
+    </div>
+  );
+}
+
+export function ArchitectureDiagram() {
+  return (
+    <section className="arch-section">
+      <header className="arch-header">
+        <p className="eyebrow">System Design</p>
+        <h2 className="arch-h2">Pipeline Architecture</h2>
+        <p className="arch-subtitle">
+          Zero runtime AI calls — all enrichment is deterministic at serve time, using
+          pre-baked JSON reference data generated by offline scripts.
+        </p>
+      </header>
+
+      {/* ── Top-level pipeline flow ─────────────────────────── */}
+      <div className="arch-pipeline">
+        <PipelineNode
+          badge="Input"
+          title="Equipment CSV"
+          fields={["manufacturer", "model", "serial number"]}
+        />
+        <ArrowRight />
+        <PipelineNode badge="①" title="Parse" sub="csv.ts" />
+        <ArrowRight />
+        <PipelineNode
+          badge="②"
+          title="Enrich Records"
+          sub="enrichRecords.ts"
+          accent
+        />
+        <ArrowRight />
+        <PipelineNode badge="③" title="Sort" sub="manufactured_date ↑" />
+        <ArrowRight />
+        <PipelineNode
+          badge="Output"
+          title="Two CSVs"
+          outputs={[
+            { label: "submission.csv", sub: "5 columns" },
+            { label: "audit.csv", sub: "13 columns" },
+          ]}
+        />
+      </div>
+
+      {/* ── Enrichment internals ────────────────────────────── */}
+      <div className="arch-detail-label">
+        <span>Enrichment Core — per-record logic</span>
+      </div>
+
+      <div className="arch-resolvers">
+        {/* ── Device Type ── */}
+        <div className="arch-resolver-col">
+          <div className="arch-resolver-head">
+            <span className="arch-resolver-fn">resolveDeviceType()</span>
+            <span className="arch-resolver-file">resolveDeviceType.ts</span>
+          </div>
+
+          <Tier
+            number={1}
+            color="#15616d"
+            title="Authoritative Override"
+            description="Exact manufacturer·model·serial key match from runtime EnrichmentReferences."
+          />
+
+          <Tier
+            number={2}
+            color="#3a86ff"
+            title="JSON Lookup"
+            description="model_type_map.json — normalized pair key → {device_type, confidence, rationale}. AI-classified offline."
+          />
+
+          <Tier
+            number={3}
+            color="#6c7f90"
+            title='"Unknown" Fallback'
+            description="Returned when no mapping exists. Confidence: low."
+          />
+
+          <div className="arch-resolution-type">
+            <span className="arch-resolution-type-label">Resolution wrapper</span>
+            <code className="arch-code">{"{ value, source, confidence, explanation }"}</code>
+          </div>
+        </div>
+
+        {/* ── Manufactured Date ── */}
+        <div className="arch-resolver-col">
+          <div className="arch-resolver-head">
+            <span className="arch-resolver-fn">resolveManufacturedDate()</span>
+            <span className="arch-resolver-file">resolveManufacturedDate.ts</span>
+          </div>
+
+          <Tier
+            number={1}
+            color="#15616d"
+            title="Authoritative Override"
+            description="Exact record key match from runtime EnrichmentReferences."
+          />
+
+          <Tier
+            number={2}
+            color="#1f7a8c"
+            title="13 Deterministic Parsers"
+            description="Manufacturer-gated regex rules. Each parser only fires for its own manufacturer (and model, where needed)."
+          >
+            <div className="arch-parser-grid">
+              {PARSERS.map((p) => (
+                <div key={p.name} className="arch-parser-badge">
+                  <span className="arch-parser-name">{p.name}</span>
+                  <PrecisionBadge precision={p.precision} />
+                </div>
+              ))}
+            </div>
+          </Tier>
+
+          <Tier
+            number={3}
+            color="#ff7d00"
+            title="Web-Verified Rules"
+            description="Rules sourced from official manuals, FDA records, and authorized documentation. Validated before acceptance."
+          >
+            <div className="arch-web-kinds">
+              <span className="arch-web-kind">regex_extract</span>
+              <span className="arch-web-kind">prefix_letter_year_map</span>
+              <span className="arch-web-kind">exact_serial_map</span>
+            </div>
+          </Tier>
+
+          <Tier
+            number={4}
+            color="#6a4c93"
+            title="AI Fallback Rules"
+            description="LLM-proposed regex rules, validated against the dataset before acceptance. Baked into manufactured_date_ai_rules.json."
+          />
+
+          <div className="arch-resolution-type">
+            <span className="arch-resolution-type-label">Resolution wrapper</span>
+            <code className="arch-code">{"{ value, source, confidence, precision, explanation }"}</code>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Offline pre-computation ─────────────────────────── */}
+      <div className="arch-offline-section">
+        <div className="arch-offline-label">
+          <span>Offline pre-computation — runs once, outputs committed to repo</span>
+        </div>
+        <div className="arch-offline-grid">
+          <OfflineScript
+            title="generateDeviceTypeDraft.ts"
+            sub="OpenAI Responses API — one batched call with strict JSON schema"
+            output="model_type_map.json"
+            outputSub="+ model_type_generation.json (metadata)"
+            color="#3a86ff"
+          />
+          <OfflineScript
+            title="generateManufacturedDateRules.ts"
+            sub="LLM proposes regex rules for unresolved serials, validated against dataset"
+            output="manufactured_date_ai_rules.json"
+            outputSub="+ manufactured_date_ai_metadata.json (metadata)"
+            color="#6a4c93"
+          />
+          <OfflineScript
+            title="Web Research (manual)"
+            sub="Official manuals, FDA records, and authorized documentation reviewed"
+            output="manufactured_date_web_rules.json"
+            outputSub="+ manufactured_date_web_metadata.json (metadata)"
+            color="#ff7d00"
+          />
+        </div>
+      </div>
+
+      {/* ── Normalization note ──────────────────────────────── */}
+      <div className="arch-normalize-note">
+        <span className="arch-normalize-label">normalize.ts</span>
+        <p>
+          All manufacturer + model lookups go through{" "}
+          <code>normalizeForType()</code> — strips punctuation, collapses
+          whitespace, uppercases, removes unicode — before any map lookup, so{" "}
+          <code>"GE Healthcare"</code> and <code>"GE HEALTHCARE"</code> resolve
+          to the same key.
+        </p>
+      </div>
+    </section>
+  );
+}
