@@ -40,20 +40,21 @@ describe("other validated date parsers", () => {
     expect(decodeWelchSpotVitalsDate("201507871")?.value).toBe("2015-01-01");
     expect(decodeWelchSureTempDate("(21) 23038261")?.value).toBe("2023-01-01");
     expect(decodeWelchSureTempDate("24519376")?.value).toBe("2024-01-01");
-    expect(decodeWelchSureTempDate("7432348")).toBeNull();
+    expect(decodeWelchSureTempDate("7432348")?.value).toBe("2007-01-01");
     expect(decodeWelchSureTempDate("074321PO")).toBeNull();
   });
 });
 
 describe("resolveManufacturedDate routing", () => {
-  test("keeps uppercase HILL ROM unresolved", () => {
-    expect(
-      resolveManufacturedDate({
-        manufacturer: "HILL ROM",
-        model: "P1440",
-        serial_number: "P216ME5983",
-      }).value,
-    ).toBeNull();
+  test("resolves uppercase HILL ROM P-series via letter+Julian-day parser", () => {
+    const result = resolveManufacturedDate({
+      manufacturer: "HILL ROM",
+      model: "P1440",
+      serial_number: "P216ME5983",
+    });
+    expect(result.value).toBe("2025-08-04");
+    expect(result.source).toBe("hillrom_bed_serial_parser");
+    expect(result.confidence).toBe("medium");
   });
 
   test("accepts lowercase Hillrom legacy routing only", () => {

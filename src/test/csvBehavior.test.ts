@@ -59,10 +59,10 @@ describe("CSV behavior", () => {
     expect(parsed.rows.filter((row) => row.serial_number === "M19413130058")).toHaveLength(2);
     expect(enrichmentSummary.mapped_device_types).toBe(801);
     expect(enrichmentSummary.unknown_device_types).toBe(0);
-    expect(enrichmentSummary.resolved_manufactured_dates).toBe(466);
-    expect(enrichmentSummary.unresolved_manufactured_dates).toBe(335);
-    expect(enrichmentSummary.resolved_manufactured_dates / enrichmentSummary.total_rows).toBeGreaterThan(0.55);
-    expect(enrichmentSummary.resolved_manufactured_dates / enrichmentSummary.total_rows).toBeLessThan(0.6);
+    expect(enrichmentSummary.resolved_manufactured_dates).toBe(631);
+    expect(enrichmentSummary.unresolved_manufactured_dates).toBe(170);
+    expect(enrichmentSummary.resolved_manufactured_dates / enrichmentSummary.total_rows).toBeGreaterThan(0.75);
+    expect(enrichmentSummary.resolved_manufactured_dates / enrichmentSummary.total_rows).toBeLessThan(0.85);
     expect(auditCsv.split("\n")[0]).toContain("manufactured_date_source");
     expect(auditCsv.trimEnd().split("\n")).toHaveLength(802);
   });

@@ -53,18 +53,19 @@ describe("web-backed manufactured-date rules", () => {
   });
 
   test("applies a source-backed prefix letter year map", () => {
+    // Uses Stryker (no letter-year deterministic parser) so the web rule fires unobstructed.
     const references: EnrichmentReferences = {
       webManufacturedDateRulesByKey: {
-        "HILLROM::P3200::FDA_RECALL": {
+        "STRYKER::SRBED3200::FDA_RECALL": {
           kind: "prefix_letter_year_map",
-          rule_key: "HILLROM::P3200::FDA_RECALL",
-          pair_key: "HILLROM::P3200",
-          manufacturer: "Hillrom",
-          model: "P3200",
+          rule_key: "STRYKER::SRBED3200::FDA_RECALL",
+          pair_key: "STRYKER::SRBED3200",
+          manufacturer: "Stryker",
+          model: "SRBED3200",
           source_type: "fda_record",
           source_title: "FDA VersaCare Recall",
           source_url: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfres/res.cfm?id=53251",
-          evidence_summary: "FDA recall documents E/F/G/H as year codes for a specific VersaCare serial family.",
+          evidence_summary: "FDA recall documents E/F/G/H as year codes for a specific serial family.",
           confidence: "high",
           serial_regex: "^([EFGH])\\d{3}AD\\d{4}$",
           prefix_group: 1,
@@ -92,8 +93,8 @@ describe("web-backed manufactured-date rules", () => {
 
     const resolved = resolveManufacturedDate(
       {
-        manufacturer: "Hillrom",
-        model: "P3200",
+        manufacturer: "Stryker",
+        model: "SRBED3200",
         serial_number: "G192AD4641",
       },
       references,
@@ -104,18 +105,20 @@ describe("web-backed manufactured-date rules", () => {
   });
 
   test("ignores web-backed rules when the current serial family does not match", () => {
+    // Uses Stryker so no deterministic parser fires; the M-prefix serial doesn't match
+    // the E/F/G/H web rule regex, so the result stays unresolved.
     const references: EnrichmentReferences = {
       webManufacturedDateRulesByKey: {
-        "HILLROM::P3200::FDA_RECALL": {
+        "STRYKER::SRBED3200::FDA_RECALL": {
           kind: "prefix_letter_year_map",
-          rule_key: "HILLROM::P3200::FDA_RECALL",
-          pair_key: "HILLROM::P3200",
-          manufacturer: "Hillrom",
-          model: "P3200",
+          rule_key: "STRYKER::SRBED3200::FDA_RECALL",
+          pair_key: "STRYKER::SRBED3200",
+          manufacturer: "Stryker",
+          model: "SRBED3200",
           source_type: "fda_record",
           source_title: "FDA VersaCare Recall",
           source_url: "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfres/res.cfm?id=53251",
-          evidence_summary: "FDA recall documents E/F/G/H as year codes for a specific VersaCare serial family.",
+          evidence_summary: "FDA recall documents E/F/G/H as year codes for a specific serial family.",
           confidence: "high",
           serial_regex: "^([EFGH])\\d{3}AD\\d{4}$",
           prefix_group: 1,
@@ -138,8 +141,8 @@ describe("web-backed manufactured-date rules", () => {
 
     const resolved = resolveManufacturedDate(
       {
-        manufacturer: "Hillrom",
-        model: "P3200",
+        manufacturer: "Stryker",
+        model: "SRBED3200",
         serial_number: "M154AD1453",
       },
       references,
